@@ -174,9 +174,66 @@ public class LinkedList {
             prev = prev.next;
             i++;
         }
+
+        Node delNode = prev.next;
+        if (delNode == tail) {
+            tail = prev;
+        }
         int val = prev.next.data;
         prev.next = prev.next.next;
+        size--;
         return val;
+    }
+
+    public boolean isCycle() {
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeCycle() {
+        Node slow = head;
+        Node fast = head;
+        boolean exists = false;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                exists = true;
+                break;
+            }
+        }
+
+        if (exists == false) {
+            return;
+        }
+        slow = head;
+        Node prev = null;
+        while (slow != fast) {
+            prev = fast;
+            slow = slow.next;
+            fast = fast.next;
+        }
+
+        if (prev == null) {
+            while (fast.next != slow) {
+                fast = fast.next;
+            }
+            fast.next = null;
+        } else {
+            prev.next = null;
+
+        }
+
     }
 
     public static void main(String[] args) {
@@ -197,7 +254,12 @@ public class LinkedList {
         System.out.println(ll.search(44));
         System.out.println(ll.recurSearch(4, head));
         // ll.reverseLL();
-        System.out.println("Removing Nth Element from the END"+ll.deleteNthFromEnd(1));
+        System.out.println("Removing Nth Element from the End :   " + ll.deleteNthFromEnd(1));
         ll.print();
+        LinkedList.tail.next = head;
+        System.out.println(ll.isCycle());
+        ll.removeCycle();
+        ll.print();
+
     }
 }
