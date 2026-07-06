@@ -139,6 +139,46 @@ public class LinkedList {
         return idx + 1;
     }
 
+    public void reverseLL() {
+        Node prev = null;
+        Node curr = tail = head;
+        Node next;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
+
+    public int deleteNthFromEnd(int n) {
+        int sz = 0;
+        Node temp = head;
+        while (temp != null) {
+            temp = temp.next;
+            sz++;
+        }
+
+        if (sz == n) {
+            int val = head.data;
+            head = head.next;
+            return val;
+        }
+
+        int i = 1;
+        int toFind = sz - n;
+        Node prev = head;
+        while (i < toFind) {
+            prev = prev.next;
+            i++;
+        }
+        int val = prev.next.data;
+        prev.next = prev.next.next;
+        return val;
+    }
+
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         ll.addFirst(2);
@@ -156,5 +196,8 @@ public class LinkedList {
         ll.print();
         System.out.println(ll.search(44));
         System.out.println(ll.recurSearch(4, head));
+        // ll.reverseLL();
+        System.out.println("Removing Nth Element from the END"+ll.deleteNthFromEnd(1));
+        ll.print();
     }
 }
