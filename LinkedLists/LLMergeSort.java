@@ -102,17 +102,69 @@ public class LLMergeSort {
         return merge(leftNode, rightNode);
     }
 
+    //zigzag linked linked list
+    public void zigzag() {
+        Node slow = head;
+        Node fast = head.next;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node miNode = slow;
+
+        Node right = miNode.next;
+        miNode.next = null;
+
+        // Reversing second half
+        Node prev = null;
+        Node curr = right;
+        Node next;
+
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        right = prev;
+        Node nextL, nextR;
+        Node left = head;
+
+        // Alternate Merge
+        while (left != null && right != null) {
+            nextL = left.next;
+            left.next = right;
+            nextR = right.next;
+            right.next = nextL;
+
+            left = nextL;
+            right = nextR;
+        }
+
+    }
+
     public static void main(String[] args) {
         LLMergeSort ll = new LLMergeSort();
-        ll.addFirst(5);
-        ll.addFirst(4);
+        // ll.addFirst(5);
+        // ll.addFirst(4);
+        // ll.addLast(1);
+        // ll.addFirst(3);
+        // ll.addFirst(8);
+        // ll.addFirst(6);
+        // ll.addFirst(1);
+        // ll.print();
+        // ll.mergeSort(head);
+        // ll.print();
+
         ll.addLast(1);
-        ll.addFirst(3);
-        ll.addFirst(8);
-        ll.addFirst(6);
-        ll.addFirst(1);
+        ll.addLast(2);
+        ll.addLast(3);
+        ll.addLast(4);
+        ll.addLast(5);
         ll.print();
-        ll.mergeSort(head);
+        ll.zigzag();
         ll.print();
+
     }
 }
