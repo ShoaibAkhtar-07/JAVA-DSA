@@ -4,6 +4,7 @@ import java.util.*;
 
 public class stackB {
 
+    // Pushing at the Bottom of the Stack
     public static void pushAtBottom(Stack<Integer> s, int data) {
         if (s.isEmpty()) {
             s.push(data);
@@ -15,15 +16,35 @@ public class stackB {
 
     }
 
-    public static void main(String[] args) {
-        Stack<Integer> s = new Stack<>();
-        s.push(3);
-        s.push(2);
-        s.push(1);
-        pushAtBottom(s, 4);
-        while (!s.isEmpty()) {
-            System.out.println(s.pop());
-            
+    
+    // Reversing the Stack
+    public static String reverseStack(String str) {
+        Stack<Character> s = new Stack<>();
+        int i = 0;
+        while (i < str.length()) {
+            s.push(str.charAt(i));
+            i++;
         }
+
+        StringBuilder st = new StringBuilder("");
+        while (!s.empty()) {
+            char curr = s.pop();
+            st.append(curr);
+            // System.out.print(s.pop());
+        }
+        return st.toString();
+
+    }
+
+    public static void main(String[] args) {
+        // Stack<Integer> s = new Stack<>();
+        // s.push(1);
+        // s.push(2);
+        // s.push(3);
+        // pushAtBottom(s, 4);
+        // while (!s.isEmpty()) {
+        // System.out.println(s.pop());
+        // }
+        System.out.println(reverseStack("shoaib"));
     }
 }
