@@ -9,6 +9,10 @@ public class QueueUsing2Stacks {
         static Stack<Integer> s1 = new Stack<>();
         static Stack<Integer> s2 = new Stack<>();
 
+        public static boolean isEmpty() {
+            return s1.isEmpty();
+        }
+
         public static void add(int data) {
             while (!s1.isEmpty()) {
                 s2.push(s1.pop());
@@ -20,7 +24,7 @@ public class QueueUsing2Stacks {
         }
 
         public static int remove() {
-            if (s1.isEmpty()) {
+            if (isEmpty()) {
                 System.out.println("Queue is Empty");
                 return -1;
             }
