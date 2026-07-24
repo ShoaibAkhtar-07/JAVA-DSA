@@ -3,21 +3,37 @@ package Queue;
 public class LeetCode134 {
 
     public static int gasStation(int gas[], int cost[]) {
-        for (int i = 0; i < gas.length; i++) {
-            int petrol = 0;
-            for (int j = 0; j < gas.length; j++) {
+        // for (int i = 0; i < gas.length; i++) {
+        // int petrol = 0;
+        // for (int j = 0; j < gas.length; j++) {
 
-                int idx = (i + j) % gas.length;
-                petrol += gas[idx];
-                petrol -= cost[idx];
-                if (petrol < 0) {
-                    break;
-                }
-            }
-            if (petrol >= 0) {
-                return i;
+        // int idx = (i + j) % gas.length;
+        // petrol += gas[idx];
+        // petrol -= cost[idx];
+        // if (petrol < 0) {
+        // break;
+        // }
+        // }
+        // if (petrol >= 0) {
+        // return i;
+        // }
+        // }
+        // return -1;
+
+        int prev = 0;
+        int curr = 0;
+        int start = 0;
+        for (int i = 0; i < gas.length; i++) {
+            curr += (gas[i] - cost[i]);
+            if (curr < 0) {
+                prev += curr;
+                start = i + 1;
+                curr = 0;
             }
         }
+        if (curr + prev >= 0)
+            return start;
+
         return -1;
     }
 
