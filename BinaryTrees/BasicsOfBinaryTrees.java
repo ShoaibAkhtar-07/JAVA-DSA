@@ -3,6 +3,8 @@ package BinaryTrees;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import Stack.stackB;
+
 public class BasicsOfBinaryTrees {
 
     static class Node {
@@ -119,6 +121,20 @@ public class BasicsOfBinaryTrees {
 
             return LSum + RSum + root.data;
         }
+
+        public static int diameterOfTree(Node root) {
+            if (root == null) {
+                return 0;
+            }
+            int leftDia = diameterOfTree(root.left);
+            int lh = heightOfTree(root.left);
+            int rightDia = diameterOfTree(root.right);
+            int rh = heightOfTree(root.right);
+        
+            int selfDia = lh + rh + 1;
+
+            return Math.max(selfDia, Math.max(leftDia, rightDia));
+        }
     }
 
     public static void main(String[] args) {
@@ -152,6 +168,8 @@ public class BasicsOfBinaryTrees {
         System.out.println("--------------");
         System.out.print("Sum of Total Nodes : ");
         System.out.println(tree.sumOfNodes(root));
+        System.out.println("--------------");
+        System.out.println("Diameter of Tree : " + tree.diameterOfTree(root));
 
     }
 }
