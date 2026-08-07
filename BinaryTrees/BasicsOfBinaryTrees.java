@@ -1,5 +1,6 @@
 package BinaryTrees;
 
+import java.sql.Time;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -122,18 +123,46 @@ public class BasicsOfBinaryTrees {
             return LSum + RSum + root.data;
         }
 
-        public static int diameterOfTree(Node root) {
-            if (root == null) {
-                return 0;
-            }
-            int leftDia = diameterOfTree(root.left);
-            int lh = heightOfTree(root.left);
-            int rightDia = diameterOfTree(root.right);
-            int rh = heightOfTree(root.right);
-        
-            int selfDia = lh + rh + 1;
 
-            return Math.max(selfDia, Math.max(leftDia, rightDia));
+        // Approach 1 : Time Complexity O(n2);
+        // public static int diameterOfTree(Node root) {
+        // if (root == null) {
+        // return 0;
+        // }
+        // int leftDia = diameterOfTree(root.left);
+        // int lh = heightOfTree(root.left);
+        // int rightDia = diameterOfTree(root.right);
+        // int rh = heightOfTree(root.right);
+
+        // int selfDia = lh + rh + 1;
+
+        // return Math.max(selfDia, Math.max(leftDia, rightDia));
+        // }
+
+
+        
+        // Approach 2 : Time Complexity O(n)
+        static class Info {
+            int diam;
+            int ht;
+
+            public Info(int diam, int ht) {
+                this.diam = diam;
+                this.ht = ht;
+            }
+        }
+
+        public static Info diameter(Node root) {
+            if (root == null) {
+                return new Info(0, 0);
+            }
+            Info leftInfo = diameter(root.left);
+            Info rightInfo = diameter(root.right);
+
+            int diam = Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.ht + rightInfo.ht + 1);
+            int ht = Math.max(leftInfo.ht, rightInfo.ht) + 1;
+
+            return new Info(diam, ht);
         }
     }
 
@@ -169,7 +198,7 @@ public class BasicsOfBinaryTrees {
         System.out.print("Sum of Total Nodes : ");
         System.out.println(tree.sumOfNodes(root));
         System.out.println("--------------");
-        System.out.println("Diameter of Tree : " + tree.diameterOfTree(root));
+        System.out.println("Diameter of Tree : " + tree.diameter(root).diam);
 
     }
 }
