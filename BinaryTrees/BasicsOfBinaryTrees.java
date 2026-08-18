@@ -1,12 +1,9 @@
 package BinaryTrees;
 
 import java.sql.Time;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
-import Stack.stackB;
+import javax.sound.sampled.spi.FormatConversionProvider;
 
 public class BasicsOfBinaryTrees {
 
@@ -212,7 +209,7 @@ public class BasicsOfBinaryTrees {
             }
         }
 
-        //Finding Kth Level of a Tree
+        // Finding Kth Level of a Tree
         public static void kthLevel(Node root, int level, int k) {
             if (root == null) {
                 return;
@@ -224,6 +221,64 @@ public class BasicsOfBinaryTrees {
             kthLevel(root.left, level + 1, k);
             kthLevel(root.right, level + 1, k);
 
+        }
+
+        // // Finding Lowest common ancestor among 2 nodes
+
+        // public static boolean getpath(Node root, int n, ArrayList<Node> path) {
+        // if (root == null) {
+        // return false;
+        // }
+        // path.add(root);
+        // if (root.data == n) {
+        // return true;
+        // }
+        // boolean foundLeft = getpath(root.left, n, path);
+        // boolean foundright = getpath(root.right, n, path);
+
+        // if ((foundright || foundLeft)) {
+        // return true;
+        // }
+
+        // path.remove(path.size() - 1);
+        // return false;
+        // }
+
+        // public static Node lowesrCommonAncestor(Node root, int n1, int n2) {
+        // ArrayList<Node> path1 = new ArrayList<>();
+        // ArrayList<Node> path2 = new ArrayList<>();
+
+        // getpath(root, n1, path1);
+        // getpath(root, n2, path2);
+
+        // int i = 0;
+        // for (; i < path1.size() && i < path2.size(); i++) {
+        // if (path1.get(i) != path2.get(i)) {
+        // break;
+        // }
+        // }
+
+        // Node lca = path1.get(i - 1);
+        // return lca;
+        // }
+
+        // Finding Lowest common ancestor among 2 nodes with better Space Complexity
+
+        public static Node lca(Node root, int n1, int n2) {
+            if (root == null || root.data == n1 || root.data == n2) {
+                return root;
+            }
+
+            Node leftLca = lca(root.left, n1, n2);
+            Node rightLca = lca(root.right, n1, n2);
+
+            if (leftLca == null) {
+                return rightLca;
+            }
+            if (rightLca == null) {
+                return leftLca;
+            }
+            return root;
         }
     }
 
@@ -267,6 +322,9 @@ public class BasicsOfBinaryTrees {
         System.out.println("--------------");
         System.out.print("Kth Level of a Tree :");
         tree.kthLevel(root, 1, 3);
+        System.out.println();
+        System.out.println("--------------");
+        System.out.print("Lowest Common Ancestor : " + tree.lca(root, 4, 5).data);
 
     }
 }
