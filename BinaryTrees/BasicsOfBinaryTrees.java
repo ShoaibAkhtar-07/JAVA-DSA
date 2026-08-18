@@ -3,6 +3,7 @@ package BinaryTrees;
 import java.sql.Time;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import Stack.stackB;
@@ -210,6 +211,20 @@ public class BasicsOfBinaryTrees {
                 System.out.print(map.get(i).data + " ");
             }
         }
+
+        //Finding Kth Level of a Tree
+        public static void kthLevel(Node root, int level, int k) {
+            if (root == null) {
+                return;
+            }
+            if (k == level) {
+                System.out.print(root.data + " ");
+                return;
+            }
+            kthLevel(root.left, level + 1, k);
+            kthLevel(root.right, level + 1, k);
+
+        }
     }
 
     public static void main(String[] args) {
@@ -248,6 +263,10 @@ public class BasicsOfBinaryTrees {
         System.out.println("--------------");
         System.out.print("Top View of a Tree : ");
         tree.topView(root);
+        System.out.println();
+        System.out.println("--------------");
+        System.out.print("Kth Level of a Tree :");
+        tree.kthLevel(root, 1, 3);
 
     }
 }
