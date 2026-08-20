@@ -263,7 +263,6 @@ public class BasicsOfBinaryTrees {
         // }
 
         // Finding Lowest common ancestor among 2 nodes with better Space Complexity
-
         public static Node lca(Node root, int n1, int n2) {
             if (root == null || root.data == n1 || root.data == n2) {
                 return root;
@@ -279,6 +278,38 @@ public class BasicsOfBinaryTrees {
                 return leftLca;
             }
             return root;
+        }
+
+        // Minimum Distance between Nodes
+        public static int lcaDist(Node root, int n) {
+            if (root == null) {
+                return -1;
+            }
+            if (root.data == n) {
+                return 0;
+            }
+
+            int leftDist = lcaDist(root.left, n);
+            int rightDist = lcaDist(root.right, n);
+
+            if (leftDist == -1 && rightDist == -1) {
+                return -1;
+            } else if (leftDist == -1) {
+                return rightDist + 1;
+            } else {
+                return leftDist + 1;
+            }
+        }
+
+        public static int minDistance(Node root, int n1, int n2) {
+            if (root == null) {
+                return -1;
+            }
+            Node lca = lca(root, n1, n2);
+            int dist1 = lcaDist(lca, n1);
+            int dist2 = lcaDist(lca, n2);
+
+            return dist1 + dist2;
         }
     }
 
@@ -325,6 +356,9 @@ public class BasicsOfBinaryTrees {
         System.out.println();
         System.out.println("--------------");
         System.out.print("Lowest Common Ancestor : " + tree.lca(root, 4, 5).data);
+        System.out.println();
+        System.out.println("--------------");
+        System.out.println("Minimum Distance between Nodes : " + tree.minDistance(root, 4, 1));
 
     }
 }
