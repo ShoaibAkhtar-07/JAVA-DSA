@@ -5,6 +5,8 @@ import java.util.*;
 
 import javax.sound.sampled.spi.FormatConversionProvider;
 
+import Stack.stackB;
+
 public class BasicsOfBinaryTrees {
 
     static class Node {
@@ -311,6 +313,45 @@ public class BasicsOfBinaryTrees {
 
             return dist1 + dist2;
         }
+
+        // Kth Ancestor of Node
+        public static int KAncestor(Node root, int n, int k) {
+            if (root == null) {
+                return -1;
+            }
+            if (root.data == n) {
+                return 0;
+            }
+            int leftNode = KAncestor(root.left, n, k);
+            int rightNode = KAncestor(root.right, n, k);
+
+            if (leftNode == -1 && rightNode == -1) {
+                return -1;
+            }
+            int max = Math.max(leftNode, rightNode);
+            if (max + 1 == k) {
+                System.out.println(root.data);
+            }
+            return max + 1;
+        }
+
+        // Transform to Sum Tree
+        public static int transformSumTree(Node root) {
+            if (root == null) {
+                return 0;
+            }
+            int leftChild = transformSumTree(root.left);
+            int rightChild = transformSumTree(root.right);
+
+            int data = root.data;
+
+            int newLeft = root.left == null ? 0 : root.left.data;
+            int newRight = root.right == null ? 0 : root.right.data;
+
+            root.data = newLeft + leftChild + newRight + rightChild;
+
+            return data;
+        }
     }
 
     public static void main(String[] args) {
@@ -359,6 +400,12 @@ public class BasicsOfBinaryTrees {
         System.out.println();
         System.out.println("--------------");
         System.out.println("Minimum Distance between Nodes : " + tree.minDistance(root, 4, 1));
-
+        System.out.println("--------------");
+        System.out.print("Kth Ancestor of Node : ");
+        tree.KAncestor(root, 6, 2);
+        System.out.println("--------------");
+        System.out.print("Transformed to Sum Tree : ");
+        tree.transformSumTree(root);
+        tree.preOrder(root);
     }
 }
